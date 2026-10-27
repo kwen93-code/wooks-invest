@@ -48,35 +48,36 @@ def fit_predict(train,obs,cols):
     return float(m.predict(obs[cols])[0])
 
 def evaluate(df):
-    # Forecast at Dec month-end only; training uses targets that had already matured.
+    # Use non-overlapping annual December forecasts, with only matured labels.
     dates=[t for t in df.index if t.month==12 and t.year>=2017 and pd.notna(df.loc[t,"target"])]
     out=[]
+    candidates={"mean":[],"ridge_all":FEATURES,
+                **{f"single_{f}":[f] for f in FEATURES},
+                "mom_6_vol":["mom_6","vol_12"],
+                "mom_12_vix":["mom_12","vix"],
+                "vol_vix":["vol_12","vix"]}
     for t in dates:
         cutoff=t-pd.DateOffset(months=HORIZON)
         train=df[(df.index<=cutoff)&df.target.notna()].copy()
-        if len(train)<72: continue
+        if len(train)<72:continue
         test=df.loc[[t]]
-        baseline=float(train["target"].mean())
-        pred=fit_predict(train,test,FEATURES)
-        y=float(test.target.iloc[0])
-        row={"forecast_date":str(t.date()),"actual":y,"baseline":baseline,"ridge":pred}
-        for feature in FEATURES:
-            cols=[x for x in FEATURES if x!=feature]
-            row["omit_"+feature]=fit_predict(train,test,cols)
+        row={"forecast_date":str(t.date()),"actual":float(test.target.iloc[0])}
+        for name,cols in candidates.items():
+            row[name]=fit_predict(train,test,cols) if cols else float(train.target.mean())
         out.append(row)
-    if len(out)<4: return None
+    if len(out)<4:return None
     d=pd.DataFrame(out)
-    mae=lambda key:round(float((d[key]-d.actual).abs().mean())*100,3)
-    base=mae("baseline"); ridge=mae("ridge")
-    ablation=[{"feature":f,"mae_without_pct_points":mae("omit_"+f),
-               "removal_mae_delta_pct_points":round(mae("omit_"+f)-ridge,3)}
-              for f in FEATURES]
-    ablation.sort(key=lambda x:x["removal_mae_delta_pct_points"],reverse=True)
+    scores={name:round(float((d[name]-d.actual).abs().mean())*100,3) for name in candidates}
+    ranking=sorted(scores,key=scores.get)
+    baseline=scores["mean"]
     return {"test_count":len(out),"test_start":out[0]["forecast_date"],
-            "test_end":out[-1]["forecast_date"],"baseline_mae_pct_points":base,
-            "ridge_mae_pct_points":ridge,
-            "improvement_pct_points":round(base-ridge,3),
-            "model_wins":ridge<base,"feature_ablation":ablation,
+            "test_end":out[-1]["forecast_date"],
+            "baseline_mae_pct_points":baseline,
+            "candidate_mae_pct_points":scores,
+            "ranking_by_mae":ranking,
+            "best_in_sample_selection_warning":"Ranking is descriptive only. Selecting the winner on these test years and reporting its MAE as unbiased performance is invalid; nested walk-forward selection is needed.",
+            "best_candidate":ranking[0],
+            "best_candidate_improvement_pct_points":round(baseline-scores[ranking[0]],3),
             "annual_test_predictions":out}
 
 def main():
@@ -85,7 +86,7 @@ def main():
     macro=pd.DataFrame(macros)
     macro["yield_slope"]=macro["ten_year"]-macro["two_year"]
     result={"generated_at":datetime.now(timezone.utc).isoformat(),
-            "method":"Annual December walk-forward, next 12 month adjusted-close total return; expanding Ridge(alpha=20) vs historical mean",
+            "method":"Annual December walk-forward, 12-month adjusted-close total returns; historical mean versus prespecified single-feature and small Ridge models",
             "source":"Yahoo Finance adjusted closes; FRED DGS10 DGS2 VIXCLS",
             "limitations":["Total returns in USD before Korean withholding/capital gains tax and FX.",
                            "Yahoo adjusted-close series and latest revised macro series are not strictly point-in-time vintage.",
@@ -99,6 +100,6 @@ def main():
     Path("research").mkdir(exist_ok=True)
     Path("research/validation_results.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
     for symbol,r in result["etfs"].items():
-        print(symbol,r.get("baseline_mae_pct_points"),r.get("ridge_mae_pct_points"),r.get("improvement_pct_points"))
-    if not any("ridge_mae_pct_points" in r for r in result["etfs"].values()):raise RuntimeError("No ETF passed data/validation checks")
+        print(symbol,r.get("baseline_mae_pct_points"),r.get("best_candidate"),r.get("best_candidate_improvement_pct_points"))
+    if not any("candidate_mae_pct_points" in r for r in result["etfs"].values()):raise RuntimeError("No ETF passed data/validation checks")
 if __name__=="__main__":main()
