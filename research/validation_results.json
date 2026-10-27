@@ -1,0 +1,603 @@
+{
+  "generated_at": "2026-10-27T08:27:43.976342+00:00",
+  "method": "Annual December walk-forward, next 12 month adjusted-close total return; expanding Ridge(alpha=20) vs historical mean",
+  "source": "Yahoo Finance adjusted closes; FRED DGS10 DGS2 VIXCLS",
+  "limitations": [
+    "Total returns in USD before Korean withholding/capital gains tax and FX.",
+    "Yahoo adjusted-close series and latest revised macro series are not strictly point-in-time vintage.",
+    "Variable omission is conditional predictive contribution, not causal effect.",
+    "Only 1-year ahead forecasts are validated; longer-horizon claims require separate tests."
+  ],
+  "etfs": {
+    "QQQ": {
+      "test_count": 8,
+      "test_start": "2017-12-31",
+      "test_end": "2024-12-31",
+      "baseline_mae_pct_points": 24.59,
+      "ridge_mae_pct_points": 27.409,
+      "improvement_pct_points": -2.819,
+      "model_wins": false,
+      "feature_ablation": [
+        {
+          "feature": "vix",
+          "mae_without_pct_points": 29.397,
+          "removal_mae_delta_pct_points": 1.988
+        },
+        {
+          "feature": "vol_12",
+          "mae_without_pct_points": 27.767,
+          "removal_mae_delta_pct_points": 0.358
+        },
+        {
+          "feature": "max_drawdown_12",
+          "mae_without_pct_points": 27.721,
+          "removal_mae_delta_pct_points": 0.312
+        },
+        {
+          "feature": "mom_3",
+          "mae_without_pct_points": 27.454,
+          "removal_mae_delta_pct_points": 0.045
+        },
+        {
+          "feature": "ten_year",
+          "mae_without_pct_points": 27.321,
+          "removal_mae_delta_pct_points": -0.088
+        },
+        {
+          "feature": "mom_6",
+          "mae_without_pct_points": 27.231,
+          "removal_mae_delta_pct_points": -0.178
+        },
+        {
+          "feature": "yield_slope",
+          "mae_without_pct_points": 27.167,
+          "removal_mae_delta_pct_points": -0.242
+        },
+        {
+          "feature": "mom_12",
+          "mae_without_pct_points": 26.616,
+          "removal_mae_delta_pct_points": -0.793
+        }
+      ],
+      "annual_test_predictions": [
+        {
+          "forecast_date": "2017-12-31",
+          "actual": -0.0012619765552431828,
+          "baseline": 0.11179732277994688,
+          "ridge": 0.14740230274623684,
+          "omit_mom_12": 0.15769363886694782,
+          "omit_mom_6": 0.14747954577689878,
+          "omit_mom_3": 0.1469904819418006,
+          "omit_vol_12": 0.13724657221233225,
+          "omit_max_drawdown_12": 0.1335920484575131,
+          "omit_ten_year": 0.07787161368707035,
+          "omit_yield_slope": 0.17066806215630853,
+          "omit_vix": 0.15719027048272788
+        },
+        {
+          "forecast_date": "2018-12-31",
+          "actual": 0.38961558979651767,
+          "baseline": 0.1179394770913443,
+          "ridge": 0.15510802493338124,
+          "omit_mom_12": 0.16727621398512482,
+          "omit_mom_6": 0.15378071064139703,
+          "omit_mom_3": 0.166669915423609,
+          "omit_vol_12": 0.16864275802035444,
+          "omit_max_drawdown_12": 0.14808300270048533,
+          "omit_ten_year": 0.08086315549455352,
+          "omit_yield_slope": 0.18642987065900335,
+          "omit_vix": 0.12085197076079945
+        },
+        {
+          "forecast_date": "2019-12-31",
+          "actual": 0.4840607983127583,
+          "baseline": 0.11790325426800724,
+          "ridge": 0.14613699267914143,
+          "omit_mom_12": 0.17370154502521024,
+          "omit_mom_6": 0.1470312406687394,
+          "omit_mom_3": 0.14269852364931584,
+          "omit_vol_12": 0.19184490863652634,
+          "omit_max_drawdown_12": 0.13398076286205193,
+          "omit_ten_year": 0.032692951229856757,
+          "omit_yield_slope": 0.18254286414814208,
+          "omit_vix": 0.13348669914763672
+        },
+        {
+          "forecast_date": "2020-12-31",
+          "actual": 0.27419765415024466,
+          "baseline": 0.13025885948007618,
+          "ridge": 0.28519966614052394,
+          "omit_mom_12": 0.31387368890286726,
+          "omit_mom_6": 0.2780910863583268,
+          "omit_mom_3": 0.2851516463225057,
+          "omit_vol_12": 0.3987976702402734,
+          "omit_max_drawdown_12": 0.30449027564543885,
+          "omit_ten_year": 0.10359027371153527,
+          "omit_yield_slope": 0.2772165170636431,
+          "omit_vix": 0.21934994442341338
+        },
+        {
+          "forecast_date": "2021-12-31",
+          "actual": -0.3257700076485729,
+          "baseline": 0.14496886435539588,
+          "ridge": 0.2879640558558496,
+          "omit_mom_12": 0.2897705434138439,
+          "omit_mom_6": 0.29100820930674076,
+          "omit_mom_3": 0.2853529480747923,
+          "omit_vol_12": 0.28225545036184985,
+          "omit_max_drawdown_12": 0.28120459355298943,
+          "omit_ten_year": 0.19262796546174318,
+          "omit_yield_slope": 0.28376400472882735,
+          "omit_vix": 0.2923987271287586
+        },
+        {
+          "forecast_date": "2022-12-31",
+          "actual": 0.5485555805306586,
+          "baseline": 0.13261353028526626,
+          "ridge": 0.11221392213411732,
+          "omit_mom_12": 0.08179323200256516,
+          "omit_mom_6": 0.10533949434111806,
+          "omit_mom_3": 0.11050652499633261,
+          "omit_vol_12": 0.0925653819508335,
+          "omit_max_drawdown_12": 0.0968206685524062,
+          "omit_ten_year": 0.11297128536233157,
+          "omit_yield_slope": 0.11103628968279101,
+          "omit_vix": 0.09811604640783478
+        },
+        {
+          "forecast_date": "2023-12-31",
+          "actual": 0.25578268146229144,
+          "baseline": 0.13440862201290973,
+          "ridge": -0.010197590714644322,
+          "omit_mom_12": 0.07337478290629385,
+          "omit_mom_6": 0.0035122367331938686,
+          "omit_mom_3": -0.019335015648809628,
+          "omit_vol_12": 0.019054172560554472,
+          "omit_max_drawdown_12": -0.032367234765401265,
+          "omit_ten_year": 0.05705253943303079,
+          "omit_yield_slope": -0.022916674604989667,
+          "omit_vix": -0.01103125333719046
+        },
+        {
+          "forecast_date": "2024-12-31",
+          "actual": 0.20772544120622616,
+          "baseline": 0.14341685578694663,
+          "ridge": 0.06317524176051373,
+          "omit_mom_12": 0.07447935859632374,
+          "omit_mom_6": 0.06701079745561257,
+          "omit_mom_3": 0.059215103056507234,
+          "omit_vol_12": 0.06344261870663342,
+          "omit_max_drawdown_12": 0.09367130865940515,
+          "omit_ten_year": 0.18465291001055895,
+          "omit_yield_slope": 0.03975755492333653,
+          "omit_vix": 0.024026800176363564
+        }
+      ]
+    },
+    "VOO": {
+      "test_count": 6,
+      "test_start": "2019-12-31",
+      "test_end": "2024-12-31",
+      "baseline_mae_pct_points": 13.552,
+      "ridge_mae_pct_points": 14.053,
+      "improvement_pct_points": -0.501,
+      "model_wins": false,
+      "feature_ablation": [
+        {
+          "feature": "mom_6",
+          "mae_without_pct_points": 14.508,
+          "removal_mae_delta_pct_points": 0.455
+        },
+        {
+          "feature": "vol_12",
+          "mae_without_pct_points": 14.213,
+          "removal_mae_delta_pct_points": 0.16
+        },
+        {
+          "feature": "vix",
+          "mae_without_pct_points": 14.09,
+          "removal_mae_delta_pct_points": 0.037
+        },
+        {
+          "feature": "mom_3",
+          "mae_without_pct_points": 13.897,
+          "removal_mae_delta_pct_points": -0.156
+        },
+        {
+          "feature": "ten_year",
+          "mae_without_pct_points": 13.832,
+          "removal_mae_delta_pct_points": -0.221
+        },
+        {
+          "feature": "max_drawdown_12",
+          "mae_without_pct_points": 13.526,
+          "removal_mae_delta_pct_points": -0.527
+        },
+        {
+          "feature": "yield_slope",
+          "mae_without_pct_points": 13.003,
+          "removal_mae_delta_pct_points": -1.05
+        },
+        {
+          "feature": "mom_12",
+          "mae_without_pct_points": 12.9,
+          "removal_mae_delta_pct_points": -1.153
+        }
+      ],
+      "annual_test_predictions": [
+        {
+          "forecast_date": "2019-12-31",
+          "actual": 0.18324396611909322,
+          "baseline": 0.13541799384714212,
+          "ridge": 0.14675951997592876,
+          "omit_mom_12": 0.14478799334935555,
+          "omit_mom_6": 0.14636051630917823,
+          "omit_mom_3": 0.15078459145853046,
+          "omit_vol_12": 0.13821872243375377,
+          "omit_max_drawdown_12": 0.15548572588075527,
+          "omit_ten_year": 0.13549412661447321,
+          "omit_yield_slope": 0.17223906395567187,
+          "omit_vix": 0.1447881310214543
+        },
+        {
+          "forecast_date": "2020-12-31",
+          "actual": 0.28794440642100017,
+          "baseline": 0.13274707605709388,
+          "ridge": 0.25515737909984554,
+          "omit_mom_12": 0.2549273640465784,
+          "omit_mom_6": 0.22488848865494304,
+          "omit_mom_3": 0.27468860998740585,
+          "omit_vol_12": 0.25365176011010243,
+          "omit_max_drawdown_12": 0.24787810852945408,
+          "omit_ten_year": 0.22882649733134078,
+          "omit_yield_slope": 0.2615668925928528,
+          "omit_vix": 0.2342067075648423
+        },
+        {
+          "forecast_date": "2021-12-31",
+          "actual": -0.18174026692398504,
+          "baseline": 0.1592101556088938,
+          "ridge": 0.16892054990054725,
+          "omit_mom_12": 0.1615010142026126,
+          "omit_mom_6": 0.16990299041349077,
+          "omit_mom_3": 0.1751544523124716,
+          "omit_vol_12": 0.1685175105596582,
+          "omit_max_drawdown_12": 0.1816952115078792,
+          "omit_ten_year": 0.13942260583623164,
+          "omit_yield_slope": 0.18319145514970256,
+          "omit_vix": 0.15494498564377396
+        },
+        {
+          "forecast_date": "2022-12-31",
+          "actual": 0.2632386398186075,
+          "baseline": 0.1399114857098513,
+          "ridge": 0.2854604201528803,
+          "omit_mom_12": 0.2208183441316653,
+          "omit_mom_6": 0.2812094958354999,
+          "omit_mom_3": 0.2931583337538718,
+          "omit_vol_12": 0.2894184355458065,
+          "omit_max_drawdown_12": 0.2398643227684185,
+          "omit_ten_year": 0.33860362852106574,
+          "omit_yield_slope": 0.30633100674510727,
+          "omit_vix": 0.2627036755344173
+        },
+        {
+          "forecast_date": "2023-12-31",
+          "actual": 0.24976038514731225,
+          "baseline": 0.13467777602863265,
+          "ridge": -0.03621655353253217,
+          "omit_mom_12": 0.026091033848289827,
+          "omit_mom_6": -0.03335791927450704,
+          "omit_mom_3": -0.03746241125718372,
+          "omit_vol_12": -0.03275080709093828,
+          "omit_max_drawdown_12": -0.036671285782551494,
+          "omit_ten_year": 0.03577855753221665,
+          "omit_yield_slope": 0.018366606429317006,
+          "omit_vix": -0.03653944171338122
+        },
+        {
+          "forecast_date": "2024-12-31",
+          "actual": 0.17823346056060574,
+          "baseline": 0.14748152098235015,
+          "ridge": 0.06317237938446804,
+          "omit_mom_12": 0.08504135581986084,
+          "omit_mom_6": 0.060447236511568414,
+          "omit_mom_3": 0.06417353006593299,
+          "omit_vol_12": 0.06373515856208083,
+          "omit_max_drawdown_12": 0.10774188164500911,
+          "omit_ten_year": 0.06568803959136923,
+          "omit_yield_slope": 0.07487016340844685,
+          "omit_vix": 0.04855200931697844
+        }
+      ]
+    },
+    "SCHD": {
+      "test_count": 5,
+      "test_start": "2020-12-31",
+      "test_end": "2024-12-31",
+      "baseline_mae_pct_points": 10.84,
+      "ridge_mae_pct_points": 13.682,
+      "improvement_pct_points": -2.842,
+      "model_wins": false,
+      "feature_ablation": [
+        {
+          "feature": "max_drawdown_12",
+          "mae_without_pct_points": 14.532,
+          "removal_mae_delta_pct_points": 0.85
+        },
+        {
+          "feature": "yield_slope",
+          "mae_without_pct_points": 14.244,
+          "removal_mae_delta_pct_points": 0.562
+        },
+        {
+          "feature": "vol_12",
+          "mae_without_pct_points": 13.633,
+          "removal_mae_delta_pct_points": -0.049
+        },
+        {
+          "feature": "ten_year",
+          "mae_without_pct_points": 13.405,
+          "removal_mae_delta_pct_points": -0.277
+        },
+        {
+          "feature": "mom_3",
+          "mae_without_pct_points": 13.319,
+          "removal_mae_delta_pct_points": -0.363
+        },
+        {
+          "feature": "mom_6",
+          "mae_without_pct_points": 13.29,
+          "removal_mae_delta_pct_points": -0.392
+        },
+        {
+          "feature": "mom_12",
+          "mae_without_pct_points": 13.003,
+          "removal_mae_delta_pct_points": -0.679
+        },
+        {
+          "feature": "vix",
+          "mae_without_pct_points": 12.288,
+          "removal_mae_delta_pct_points": -1.394
+        }
+      ],
+      "annual_test_predictions": [
+        {
+          "forecast_date": "2020-12-31",
+          "actual": 0.2987588839037614,
+          "baseline": 0.10151271236024967,
+          "ridge": 0.04589441757939464,
+          "omit_mom_12": 0.05115477782792206,
+          "omit_mom_6": 0.04986176690786936,
+          "omit_mom_3": 0.07914325631189217,
+          "omit_vol_12": 0.04695344649876295,
+          "omit_max_drawdown_12": 0.046535030740722495,
+          "omit_ten_year": 0.042210100168983945,
+          "omit_yield_slope": 0.03285400752765584,
+          "omit_vix": 0.03505802491225185
+        },
+        {
+          "forecast_date": "2021-12-31",
+          "actual": -0.03255557138516829,
+          "baseline": 0.14362410148795465,
+          "ridge": 0.14437059583545955,
+          "omit_mom_12": 0.1385550594207588,
+          "omit_mom_6": 0.1330290791367734,
+          "omit_mom_3": 0.14826637334512682,
+          "omit_vol_12": 0.14017829257861364,
+          "omit_max_drawdown_12": 0.17222690018947215,
+          "omit_ten_year": 0.10872694596530005,
+          "omit_yield_slope": 0.15603445099698937,
+          "omit_vix": 0.11849698051958393
+        },
+        {
+          "forecast_date": "2022-12-31",
+          "actual": 0.045442195501251614,
+          "baseline": 0.13219376201801536,
+          "ridge": 0.13268300600281713,
+          "omit_mom_12": 0.10693488173402413,
+          "omit_mom_6": 0.1338082542785722,
+          "omit_mom_3": 0.14008937304000724,
+          "omit_vol_12": 0.14072221425359055,
+          "omit_max_drawdown_12": 0.1444715091950688,
+          "omit_ten_year": 0.22464615979143668,
+          "omit_yield_slope": 0.16161628221800417,
+          "omit_vix": 0.08074570739808767
+        },
+        {
+          "forecast_date": "2023-12-31",
+          "actual": 0.11659771292661203,
+          "baseline": 0.11918144038650685,
+          "ridge": -0.02738087155208946,
+          "omit_mom_12": -0.033617352136016854,
+          "omit_mom_6": -0.025760976971673788,
+          "omit_mom_3": -0.023597830321009983,
+          "omit_vol_12": -0.02365300516493915,
+          "omit_max_drawdown_12": -0.040112689603103976,
+          "omit_ten_year": 0.06703562131222844,
+          "omit_yield_slope": 0.0028821629507856383,
+          "omit_vix": -0.018661759957499885
+        },
+        {
+          "forecast_date": "2024-12-31",
+          "actual": 0.04339855163715778,
+          "baseline": 0.12262924487206614,
+          "ridge": 0.020293375799489338,
+          "omit_mom_12": 0.02366752172197739,
+          "omit_mom_6": 0.024099198533493377,
+          "omit_mom_3": 0.012705097392347403,
+          "omit_vol_12": 0.021829586289031283,
+          "omit_max_drawdown_12": 0.02955148273681353,
+          "omit_ten_year": 0.08705177058761891,
+          "omit_yield_slope": 0.015571420924343105,
+          "omit_vix": 0.014319077795098806
+        }
+      ]
+    },
+    "QLD": {
+      "test_count": 8,
+      "test_start": "2017-12-31",
+      "test_end": "2024-12-31",
+      "baseline_mae_pct_points": 44.676,
+      "ridge_mae_pct_points": 49.697,
+      "improvement_pct_points": -5.021,
+      "model_wins": false,
+      "feature_ablation": [
+        {
+          "feature": "max_drawdown_12",
+          "mae_without_pct_points": 50.079,
+          "removal_mae_delta_pct_points": 0.382
+        },
+        {
+          "feature": "mom_3",
+          "mae_without_pct_points": 49.815,
+          "removal_mae_delta_pct_points": 0.118
+        },
+        {
+          "feature": "mom_6",
+          "mae_without_pct_points": 49.677,
+          "removal_mae_delta_pct_points": -0.02
+        },
+        {
+          "feature": "vix",
+          "mae_without_pct_points": 49.507,
+          "removal_mae_delta_pct_points": -0.19
+        },
+        {
+          "feature": "vol_12",
+          "mae_without_pct_points": 49.317,
+          "removal_mae_delta_pct_points": -0.38
+        },
+        {
+          "feature": "yield_slope",
+          "mae_without_pct_points": 49.227,
+          "removal_mae_delta_pct_points": -0.47
+        },
+        {
+          "feature": "mom_12",
+          "mae_without_pct_points": 47.183,
+          "removal_mae_delta_pct_points": -2.514
+        },
+        {
+          "feature": "ten_year",
+          "mae_without_pct_points": 41.442,
+          "removal_mae_delta_pct_points": -8.255
+        }
+      ],
+      "annual_test_predictions": [
+        {
+          "forecast_date": "2017-12-31",
+          "actual": -0.0831044236026579,
+          "baseline": 0.3694517755794549,
+          "ridge": -0.10497424282361634,
+          "omit_mom_12": -0.06894309002164556,
+          "omit_mom_6": -0.07396930524990214,
+          "omit_mom_3": -0.09182857754310253,
+          "omit_vol_12": -0.1247429910461893,
+          "omit_max_drawdown_12": -0.11296762771685603,
+          "omit_ten_year": 0.17164091659497044,
+          "omit_yield_slope": 0.22686545453479876,
+          "omit_vix": -0.12144170102653423
+        },
+        {
+          "forecast_date": "2018-12-31",
+          "actual": 0.8169010028796695,
+          "baseline": 0.37367036449431684,
+          "ridge": 0.3004238811328112,
+          "omit_mom_12": 0.3083635104047984,
+          "omit_mom_6": 0.31239017585724094,
+          "omit_mom_3": 0.2612998669726155,
+          "omit_vol_12": 0.31538927065781813,
+          "omit_max_drawdown_12": 0.2891450263291817,
+          "omit_ten_year": 0.5017614944615947,
+          "omit_yield_slope": 0.4866076108834634,
+          "omit_vix": 0.29820708211530056
+        },
+        {
+          "forecast_date": "2019-12-31",
+          "actual": 0.8889541503691705,
+          "baseline": 0.3542840037906382,
+          "ridge": 0.2576553847425521,
+          "omit_mom_12": 0.2850206451758545,
+          "omit_mom_6": 0.25499089983409146,
+          "omit_mom_3": 0.2918159712941285,
+          "omit_vol_12": 0.286218829821959,
+          "omit_max_drawdown_12": 0.2131305701525919,
+          "omit_ten_year": 0.1305410640874259,
+          "omit_yield_slope": 0.39249104745093155,
+          "omit_vix": 0.24505818492270182
+        },
+        {
+          "forecast_date": "2020-12-31",
+          "actual": 0.546694245607761,
+          "baseline": 0.3767998766603263,
+          "ridge": 0.6591014129462761,
+          "omit_mom_12": 0.6695288387054698,
+          "omit_mom_6": 0.677640823975205,
+          "omit_mom_3": 0.6748542493642933,
+          "omit_vol_12": 0.7268504373260491,
+          "omit_max_drawdown_12": 0.7495855602207802,
+          "omit_ten_year": 0.2044423069788252,
+          "omit_yield_slope": 0.7039348310987741,
+          "omit_vix": 0.6154542754854491
+        },
+        {
+          "forecast_date": "2021-12-31",
+          "actual": -0.6052240596251763,
+          "baseline": 0.4171690814724964,
+          "ridge": 0.5002935030133123,
+          "omit_mom_12": 0.5003092962102954,
+          "omit_mom_6": 0.4984102154578518,
+          "omit_mom_3": 0.5241589155195483,
+          "omit_vol_12": 0.4871404932126579,
+          "omit_max_drawdown_12": 0.49800330613129085,
+          "omit_ten_year": 0.394812004745575,
+          "omit_yield_slope": 0.5049843818758809,
+          "omit_vix": 0.4815833240776993
+        },
+        {
+          "forecast_date": "2022-12-31",
+          "actual": 1.177216325329932,
+          "baseline": 0.36837203373464444,
+          "ridge": 0.35701191569804575,
+          "omit_mom_12": 0.3207330820241855,
+          "omit_mom_6": 0.35634126526298665,
+          "omit_mom_3": 0.3519876484216354,
+          "omit_vol_12": 0.3987067441366833,
+          "omit_max_drawdown_12": 0.3138864606927004,
+          "omit_ten_year": 0.6994055467198386,
+          "omit_yield_slope": 0.4047689208203122,
+          "omit_vix": 0.38050668691345974
+        },
+        {
+          "forecast_date": "2023-12-31",
+          "actual": 0.42814638885017975,
+          "baseline": 0.3612569235597011,
+          "ridge": -0.05541611017803544,
+          "omit_mom_12": 0.13230411916475804,
+          "omit_mom_6": -0.05885585103359864,
+          "omit_mom_3": -0.03907000110382719,
+          "omit_vol_12": -0.032056285053672695,
+          "omit_max_drawdown_12": -0.09443598525961233,
+          "omit_ten_year": 0.28754822662619905,
+          "omit_yield_slope": 0.0043602755110019875,
+          "omit_vix": -0.05531695106920248
+        },
+        {
+          "forecast_date": "2024-12-31",
+          "actual": 0.303577468979374,
+          "baseline": 0.3792033267345114,
+          "ridge": 0.019193039088868546,
+          "omit_mom_12": 0.03628427762479569,
+          "omit_mom_6": 0.019496771065259322,
+          "omit_mom_3": 0.029833781760121747,
+          "omit_vol_12": 0.015299005547274092,
+          "omit_max_drawdown_12": 0.2227419151889649,
+          "omit_ten_year": 0.3299303983292112,
+          "omit_yield_slope": -0.03416677079494096,
+          "omit_vix": -0.020323051137047965
+        }
+      ]
+    }
+  }
+}
