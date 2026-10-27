@@ -12,8 +12,9 @@ from sklearn.preprocessing import StandardScaler
 
 TICKERS=["QQQ","VOO","SCHD","QLD"]
 HORIZON=12
-FEATURES=["mom_12","mom_6","mom_3","vol_12","max_drawdown_12","ten_year","yield_slope","vix"]
+FEATURES=["mom_12","mom_6","mom_3","vol_12","max_drawdown_12","ten_year","yield_slope","vix","usd_index_mom_12","global_equity_mom_12","emerging_equity_mom_12","oil_mom_12","gold_mom_12","global_us_relative_12"]
 FRED={"ten_year":"DGS10","two_year":"DGS2","vix":"VIXCLS"}
+GLOBAL_TICKERS={"usd_index":"UUP","global_equity":"VEU","emerging_equity":"EEM","oil":"USO","gold":"GLD"}
 
 def get_fred(series):
     url=f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series}"
@@ -24,7 +25,7 @@ def get_fred(series):
     return x.set_index("date")[series].resample("ME").last().ffill()
 
 def get_prices():
-    raw=yf.download(TICKERS,start="1999-01-01",auto_adjust=True,actions=False,
+    raw=yf.download(TICKERS+list(GLOBAL_TICKERS.values()),start="1999-01-01",auto_adjust=True,actions=False,
                     progress=False,threads=False)
     if raw.empty: raise RuntimeError("ETF prices unavailable; no fabricated data")
     close=raw["Close"] if isinstance(raw.columns,pd.MultiIndex) else raw[["Close"]].rename(columns={"Close":TICKERS[0]})
@@ -85,13 +86,18 @@ def main():
     macros={k:get_fred(v) for k,v in FRED.items()}
     macro=pd.DataFrame(macros)
     macro["yield_slope"]=macro["ten_year"]-macro["two_year"]
+    for name,symbol in GLOBAL_TICKERS.items():
+        macro[name+"_mom_12"]=close[symbol].pct_change(12)
+    macro["global_us_relative_12"]=macro["global_equity_mom_12"]-close["VOO"].pct_change(12)
     result={"generated_at":datetime.now(timezone.utc).isoformat(),
             "method":"Annual December walk-forward, 12-month adjusted-close total returns; historical mean versus prespecified single-feature and small Ridge models",
-            "source":"Yahoo Finance adjusted closes; FRED DGS10 DGS2 VIXCLS",
+            "source":"Yahoo Finance ETF adjusted closes (UUP, VEU, EEM, USO, GLD international proxies); FRED DGS10 DGS2 VIXCLS",
             "limitations":["Total returns in USD before Korean withholding/capital gains tax and FX.",
                            "Yahoo adjusted-close series and latest revised macro series are not strictly point-in-time vintage.",
                            "Variable omission is conditional predictive contribution, not causal effect.",
-                           "Only 1-year ahead forecasts are validated; longer-horizon claims require separate tests."],
+                           "Only 1-year ahead forecasts are validated; longer-horizon claims require separate tests.",
+                           "International variables use investable ETF proxies rather than spot FX, crude futures or full global indices.",
+                           "USO futures-roll effects and UUP currency basket composition limit macroeconomic interpretation."],
             "etfs":{}}
     for ticker in TICKERS:
         df=frame_for(ticker,close,macro)
